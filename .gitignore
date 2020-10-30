@@ -1,0 +1,6 @@
+#img
+src/wordcloud/
+.idea
+debug.log
+log.txt
+src/data
