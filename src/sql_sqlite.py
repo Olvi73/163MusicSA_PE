@@ -1,5 +1,5 @@
 """
-一般 Python 用于连接 MySQL 的工具：pymysql
+    sqlite3连接数据库
 """
 import sqlite3
 from contextlib import contextmanager
@@ -14,14 +14,15 @@ def dict_factory(cursor, row):
 
 
 global connection
-connection = sqlite3.connect(r'src/data/data.db')
+# 设置同线程判断为false，方便在pyqt中多线程调用
+connection = sqlite3.connect(r'data/data.db', check_same_thread=False)
 connection.row_factory = dict_factory
 
 
-#上下文管理器
+# 上下文管理器
 @contextmanager
-def get_cursor(conn: connection):
-    cu = conn.cursor()
+def get_cursor(con: connection):
+    cu = con.cursor()
     try:
         yield cu
     finally:

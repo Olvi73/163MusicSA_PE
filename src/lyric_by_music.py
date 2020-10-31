@@ -1,6 +1,7 @@
 """
 根据歌曲 ID 获得所有的歌曲所对应的歌词
 """
+import sys
 import datetime
 import json
 import random
@@ -12,42 +13,45 @@ from concurrent.futures.process import ProcessPoolExecutor
 from src import sql_sqlite as sql
 from src.util.user_agents import agents
 
-words=['编曲','混音','录音室','录音师','录音','母带','制作','贝斯']
-#自定义清除内容
+words = ['编曲', '混音', '录音室', '录音师', '录音', '母带', '制作', '贝斯']
+
+
+# 自定义清除内容
 def clearInf(lyr):
     try:
-        rs=re.search('.*:.*(\n|.)',lyr).group()
-        lyr=lyr.replace(rs,'')
+        rs = re.search('.*:.*(\n|.)', lyr).group()
+        lyr = lyr.replace(rs, '')
     except:
-       pass
+        pass
     try:
-        rs=re.search('.*：.*(\n|.)',lyr).group()
-        lyr=lyr.replace(rs,'')
+        rs = re.search('.*：.*(\n|.)', lyr).group()
+        lyr = lyr.replace(rs, '')
     except:
-       pass
-    #清除  作曲 :  nameA/nameB \n
-    n=lyr.count(":")+lyr.count("：")
-    if(n!=0):
+        pass
+    # 清除  作曲 :  nameA/nameB \n
+    n = lyr.count(":") + lyr.count("：")
+    if (n != 0):
         return clearInf(lyr)
     return lyr
-    
+
+
 class LyricComment(object):
     headers = {
-        
+
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'Accept-Encoding': 'gzip, deflate, sdch',
         'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
         # 获取数据多了之后，就会被禁用访问,可以使用代理
-        'Cookie': 'MUSIC_U=f8b73ab123ddad32d44c37546522e06bb123363f4b813922a1902f2ds2ceb750c52sd32ccbb1ab2b9c23asd3a31522c7067cce3c7469;',
+        # 'Cookie': 'MUSIC_U=;',
         'DNT': '1',
         'Host': 'music.163.com',
         'Pragma': 'no-cache',
         'Referer': 'http://music.163.com/',
         'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'
-    
+
     }
 
     def saveLyric(self, music_id):
@@ -55,7 +59,7 @@ class LyricComment(object):
         agent = random.choice(agents)
         self.headers["User-Agent"] = agent
         url = 'http://music.163.com/api/song/lyric?id=' + str(music_id) + '&lv=1&kv=1&tv=1'
-        #获取歌词
+        # 获取歌词
         r = requests.get(url, headers=self.headers)
         # 解析
         lyricJson = json.loads(r.text)
@@ -63,19 +67,19 @@ class LyricComment(object):
             # 把歌词里的时间干掉
             regex = re.compile(r'\[.*\]')
             finalLyric = re.sub(regex, '', lyricJson['lrc']['lyric']).strip()
-            #把歌词中的作词作曲等信息去掉，利用中英文的:来判断
+            # 把歌词中的作词作曲等信息去掉，利用中英文的:来判断
 
             # print(n)
             # global lyr
             # lyr=finalLyric
-            #临时查看歌词
+            # 临时查看歌词
 
-            n=finalLyric.count(":")+finalLyric.count("：")
-            if(n!=0):
-                finalLyric=clearInf(finalLyric)
+            n = finalLyric.count(":") + finalLyric.count("：")
+            if (n != 0):
+                finalLyric = clearInf(finalLyric)
             # for n in range(len(words)):
             #     finalLyric=finalLyric.replace(words[n],'')
-            #临时清理
+            # 临时清理
 
             # 持久化数据库
             try:
@@ -88,15 +92,15 @@ class LyricComment(object):
         time.sleep(1)
 
 
-def saveLyricBatch(user_id,index):
+def saveLyricBatch(user_id, index):
     my_lyric_comment = LyricComment()
     offset = 34 * index
-    musics = sql.get_music_page(user_id,offset, 34)
+    musics = sql.get_music_page(user_id, offset, 34)
     print("index:", index, "offset:", offset, "musics :", len(musics), "start")
 
     for item in musics:
-        flag=sql.try_music(item['music_id']).get('num')
-        if(flag==0):
+        flag = sql.try_music(item['music_id']).get('num')
+        if (flag == 0):
             try:
                 my_lyric_comment.saveLyric(item['music_id'])
             except Exception as e:
@@ -115,9 +119,9 @@ def lyricSpider(user_id):
     try:
         musics_num = sql.get_music_num(user_id)
     except:
-        print("用户未开启权限,程序结束")
-        sys.exit(0)
-    print("musics :", len(musics_num), "start")
+        print(musics_num)
+        print("用户未开启权限,请开启权限后重试！")
+    print("musics :", musics_num.get('num'), "start")
     batch = math.ceil(musics_num.get('num') / 34.0)
     pool = ProcessPoolExecutor(3)
     for index in range(0, batch):
@@ -126,9 +130,6 @@ def lyricSpider(user_id):
     print("======= 结束爬 歌词 信息 ===========")
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))
-    print("耗时：", (endTime - startTime).seconds, "秒")
-
-
+    print("爬歌词耗时：", (endTime - startTime).seconds, "秒")
 # if __name__ == '__main__':
 #     lyricSpider()
-

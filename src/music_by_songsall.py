@@ -17,6 +17,7 @@ def get_record(user_id):  # 创建获取歌手信息的方法
     option = webdriver.ChromeOptions()  # 设置不弹出浏览器
     option.headless = True
     driver = webdriver.Chrome(chrome_options=option)  # webdriver实例化
+    # driver = webdriver.Chrome(chrome_options=option, executable_path='chromedriver.exe')
     song = {}
     driver.get(url_recd)
     # 实例化对象访问url
@@ -62,10 +63,12 @@ def get_record(user_id):  # 创建获取歌手信息的方法
 
 def musicSpider(user_id):
     startTime = datetime.datetime.now()
-    print("======= 开始爬 歌曲 信息 ===========")
+    print("开始爬 歌曲 信息...")
     get_record(user_id)  # 调用爬取方法
-    print("======= 结束爬 歌曲 信息 ===========")
+    musics_num = sql.get_music_num(user_id)
+    print('歌曲数量:', musics_num.get('num'))
+    print("结束爬 歌曲 信息...")
     endTime = datetime.datetime.now()
-    print("耗时：", (endTime - startTime).seconds, "秒")
+    print("爬歌曲耗时：", (endTime - startTime).seconds, "秒")
 # if __name__ == '__main__':
 #     musicSpider()

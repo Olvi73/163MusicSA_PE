@@ -1,6 +1,6 @@
 #img
-src/wordcloud/
+wordcloud/
 .idea
 debug.log
 log.txt
-src/data
+data/

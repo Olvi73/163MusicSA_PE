@@ -46,7 +46,7 @@ def cloudArtist(user_id):
     plt.figure()  # 创建一个图形实例
     plt.imshow(word_cloud)
     plt.axis("off")  # 不显示坐标尺寸
-    plt.savefig(r'src/wordcloud/'+user_id+'_artistCloud.png', dpi=400)  # 指定分辨率
+    plt.savefig(r'wordcloud/'+user_id+'_artistCloud.png', dpi=400)  # 指定分辨率
     # plt.show()
 
     print("finish analyse lyric")
