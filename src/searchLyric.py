@@ -8,9 +8,6 @@ import random
 import re
 import time
 import requests
-import math
-from concurrent.futures.process import ProcessPoolExecutor
-from src import sql_sqlite as sql
 from src.util.user_agents import agents
 
 words = ['编曲', '混音', '录音室', '录音师', '录音', '母带', '制作', '贝斯']
@@ -35,7 +32,7 @@ def clearInf(lyr):
     return lyr
 
 
-class LyricComment(object):
+class Lyric(object):
     headers = {
 
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -72,59 +69,22 @@ class LyricComment(object):
             n = finalLyric.count(":") + finalLyric.count("：")
             if (n != 0):
                 finalLyric = clearInf(finalLyric)
+            return finalLyric
             # for n in range(len(words)):
             #     finalLyric=finalLyric.replace(words[n],'')
             # 临时清理
 
             # 持久化数据库
-            try:
-                sql.insert_lyric(music_id, finalLyric)
-            except Exception as e:
-                print(music_id, "insert error", str(e))
+
         else:
             print(str(music_id), "has no lyric", lyricJson)
+            finalLyric = str(music_id), "has no lyric", lyricJson
+            return finalLyric
         # 请求完成后睡一秒 防作弊
         time.sleep(1)
 
 
-def saveLyricBatch(user_id, index):
-    my_lyric_comment = LyricComment()
-    offset = 34 * index
-    musics = sql.get_music_page(user_id, offset, 34)
-    print("index:", index, "offset:", offset, "musics :", len(musics), "start")
-
-    for item in musics:
-        flag = sql.try_music(item['music_id']).get('num')
-        if (flag == 0):
-            try:
-                my_lyric_comment.saveLyric(item['music_id'])
-            except Exception as e:
-                # 打印错误日志
-                print(item['music_id'], ' internal  error : ' + str(e))
-                # traceback.print_exc()
-                time.sleep(1)
-    print("index:", index, "finished")
-
-
-def lyricSpider(user_id):
-    print("开始爬 歌词 信息...")
-    startTime = datetime.datetime.now()
-    print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
-    # 所有歌手数量
-
-    musics_num = sql.get_music_num(user_id)
-    if (musics_num.get('num')==0):
-        print('没有找到该用户信息')
-    else:
-        print("musics :", musics_num.get('num'), "start")
-        batch = math.ceil(musics_num.get('num') / 34.0)
-        pool = ProcessPoolExecutor(3)
-        for index in range(0, batch):
-            pool.submit(saveLyricBatch, user_id, index)
-        pool.shutdown(wait=True)
-    print("结束爬 歌词 信息...")
-    endTime = datetime.datetime.now()
-    print(endTime.strftime('%Y-%m-%d %H:%M:%S'))
-    print("爬歌词耗时：", (endTime - startTime).seconds, "秒")
-# if __name__ == '__main__':
-#     lyricSpider()
+def searchLyr(music_id):
+    my_lyric_comment = Lyric()
+    lyr = my_lyric_comment.saveLyric(music_id)
+    return lyr

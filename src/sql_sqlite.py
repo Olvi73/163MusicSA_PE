@@ -29,6 +29,20 @@ def get_cursor(con: connection):
         cu.close()
 
 
+def get_musics():
+    with get_cursor(connection) as cursor:
+        sql = "SELECT * FROM `musics` "
+        cursor.execute(sql, ())
+        return cursor.fetchall()
+
+
+def get_lyrics():
+    with get_cursor(connection) as cursor:
+        sql = "SELECT * FROM `lyrics` "
+        cursor.execute(sql, ())
+        return cursor.fetchall()
+
+
 # 根据用户id获取其排行的音乐id
 def get_music(user_id):
     with get_cursor(connection) as cursor:
@@ -61,10 +75,26 @@ def get_lyric(user_id):
         return cursor.fetchall()
 
 
+def get_lyric_table(user_id):
+    with get_cursor(connection) as cursor:
+        sql = "SELECT lyrics.`music_id`,`lyric` FROM `lyrics`,`musics` WHERE lyrics.`music_id`=musics.`music_id` AND " \
+              "musics.`user_id`=? "
+        cursor.execute(sql, [user_id])
+        return cursor.fetchall()
+
+
 # 根据用户id获取歌手
 def get_artist(user_id):
     with get_cursor(connection) as cursor:
         sql = "SELECT `nickname` FROM `musics` WHERE user_id=?"
+        cursor.execute(sql, [user_id])
+        return cursor.fetchall()
+
+
+# 根据用户id获取table
+def get_music_table(user_id):
+    with get_cursor(connection) as cursor:
+        sql = "select music_id,music_name,nickname from musics where user_id=?"
         cursor.execute(sql, [user_id])
         return cursor.fetchall()
 
@@ -136,4 +166,6 @@ def truncate_all():
     connection.commit()
 
 # if __name__ == '__main__':
-#     print(get_all_artist())
+#     a=get_music_table(81631214)
+#     print(a)
+#     type(a)
