@@ -8,6 +8,7 @@ import random
 import re
 import time
 import requests
+import src.util.user_agents
 from src.util.user_agents import agents
 
 words = ['编曲', '混音', '录音室', '录音师', '录音', '母带', '制作', '贝斯']

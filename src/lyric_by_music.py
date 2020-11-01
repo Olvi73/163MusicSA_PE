@@ -9,6 +9,9 @@ import re
 import time
 import requests
 import math
+import concurrent.futures
+import src.util.user_agents
+import src.sql_sqlite
 from concurrent.futures.process import ProcessPoolExecutor
 from src import sql_sqlite as sql
 from src.util.user_agents import agents

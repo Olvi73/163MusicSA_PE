@@ -7,6 +7,9 @@ Created on Tue Oct 13 21:16:12 2020
 
 import datetime
 import time
+import selenium
+import bs4
+import src.sql_sqlite
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from src import sql_sqlite as sql
@@ -16,8 +19,8 @@ def get_record(user_id):  # 创建获取歌手信息的方法
     url_recd = 'https://music.163.com/#/user/songs/rank?id=' + user_id  # 构建爬取url
     option = webdriver.ChromeOptions()  # 设置不弹出浏览器
     option.headless = True
-    driver = webdriver.Chrome(chrome_options=option)  # webdriver实例化
-    # driver = webdriver.Chrome(chrome_options=option, executable_path='chromedriver.exe')
+    # driver = webdriver.Chrome(chrome_options=option)  # webdriver实例化
+    driver = webdriver.Chrome(chrome_options=option, executable_path='./data/chromedriver.exe')
     song = {}
     driver.get(url_recd)
     # 实例化对象访问url

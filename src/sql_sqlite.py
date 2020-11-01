@@ -2,6 +2,7 @@
     sqlite3连接数据库
 """
 import sqlite3
+import contextlib
 from contextlib import contextmanager
 
 
@@ -15,7 +16,7 @@ def dict_factory(cursor, row):
 
 global connection
 # 设置同线程判断为false，方便在pyqt中多线程调用
-connection = sqlite3.connect(r'data/data.db', check_same_thread=False)
+connection = sqlite3.connect(r'./data/data.db', check_same_thread=False)
 connection.row_factory = dict_factory
 
 

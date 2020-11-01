@@ -4,6 +4,18 @@ import datetime
 import sys
 import os
 import threading
+import ui
+import PyQt5
+import src.lyric_by_music
+import src.music_by_songsall
+import src.word_cloud_by_artist
+import src.word_cloud_by_lyric
+import src.searchLyric
+#
+#
+# if hasattr(sys, 'frozen'):
+#
+#     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 
 from ui import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView, QAbstractItemView, QTableWidgetItem
@@ -17,7 +29,6 @@ from src.music_by_songsall import musicSpider
 from src.word_cloud_by_artist import cloudArtist
 from src.word_cloud_by_lyric import cloudLyric
 from src.searchLyric import searchLyr
-from src.lto import analysis
 
 
 # pyuic5 -o ui.py frame2.ui
@@ -42,7 +53,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setupUi(self)
         self.setWindowTitle('163MusicSA')
-        self.setWindowIcon(QIcon(r'icon/icon.png'))
+        self.setWindowIcon(QIcon(r'./icon/icon.png'))
         QApplication.setStyle('Fusion')
         self.th = None
 
@@ -132,7 +143,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def lc(self):
         cloudLyric(self.user_idEdit.text())
-        pix = QPixmap(r'wordcloud/' + self.user_idEdit.text() + '_lyricCloud.png')
+        pix = QPixmap(r'./wordcloud/' + self.user_idEdit.text() + '_lyricCloud.png')
         self.cloud_label.setPixmap(pix)
         self.cloud_label.setScaledContents(True)  # 自适应QLabel大小
 
@@ -145,7 +156,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def ca(self):
         cloudArtist(self.user_idEdit.text())
-        pix = QPixmap(r'wordcloud/' + self.user_idEdit.text() + '_artistCloud.png')
+        pix = QPixmap(r'./wordcloud/' + self.user_idEdit.text() + '_artistCloud.png')
         self.cloud_label.setPixmap(pix)
         self.cloud_label.setScaledContents(True)  # 自适应QLabel大小
 
@@ -235,7 +246,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
 # 保存日志
 class Logger(object):
-    def __init__(self, filename="Default.log"):
+    def __init__(self, filename="./Default.log"):
         self.terminal = sys.stdout
         self.log = open(filename, "a")
 
@@ -257,7 +268,7 @@ if __name__ == '__main__':
     # 将窗口控件显示在屏幕上
     myWin.show()
 
-    sys.stdout = Logger('log.txt')
+    sys.stdout = Logger('./log.txt')
 
     # 清空数据库
     # sql.truncate_all()
