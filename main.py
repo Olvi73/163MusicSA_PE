@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import datetime
+import multiprocessing
 import sys
 import os
 import threading
@@ -259,6 +260,8 @@ class Logger(object):
 
 
 if __name__ == '__main__':
+    # 多线程打包
+    multiprocessing.freeze_support()
     path = os.path.abspath(os.path.dirname(__file__))
 
     # 固定的，PyQt5程序都需要QApplication对象。sys.argv是命令行参数列表，确保程序可以双击运行

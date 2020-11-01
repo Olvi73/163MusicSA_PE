@@ -114,6 +114,7 @@ def lyricSpider(user_id):
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
     # 所有歌手数量
+    # 打包后出现多个进程
 
     musics_num = sql.get_music_num(user_id)
     if (musics_num.get('num')==0):
