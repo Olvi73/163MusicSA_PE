@@ -21,7 +21,7 @@ def cloudLyric(user_id):
     for n in range(len(lyr)):
         texts[0][n]['lyric'] = texts[0][n]['lyric'].replace('\n', '')
         # 把歌词中的\n干掉
-    color_mask = imread(r"./src/img/heart.jpg")
+    color_mask = imread(r"./data/wordcloud/shape/heart.jpg")
     # 单独运行时解开注释
     midTime = datetime.datetime.now()
     print("获取歌词信息完毕，分析start:", midTime.strftime('%Y-%m-%d %H:%M:%S'))
@@ -31,7 +31,7 @@ def cloudLyric(user_id):
     if 'u3000' in data:
         data.pop('u3000')
     word_cloud = WordCloud(scale=16,
-                           font_path="./msyh.ttc",
+                           font_path="./data/font/msyh.ttc",
                            background_color="white",
                            max_words=400,
                            max_font_size=100,
@@ -43,7 +43,7 @@ def cloudLyric(user_id):
     # plt.imshow(word_cloud)
     # plt.axis("off")  # 不显示坐标尺寸
     # plt.savefig(r'wordcloud/'+user_id+'_lyricCloud.png', dpi=400)  # 指定分辨率
-    word_cloud.to_file(r'./wordcloud/' + user_id + '_lyricCloud.png')
+    word_cloud.to_file(r'./data/wordcloud/' + user_id + '_lyricCloud.png')
     # plt.show()
 
     print("finish analyse lyric")

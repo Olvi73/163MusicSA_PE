@@ -5,7 +5,7 @@ import multiprocessing
 import sys
 import os
 import threading
-import ui
+import src.ui.ui
 import PyQt5
 import src.lyric_by_music
 import src.music_by_songsall
