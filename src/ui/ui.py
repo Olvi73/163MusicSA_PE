@@ -430,4 +430,4 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainWindow", "search"))
         self.user_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">用户uid：</span></p></body></html>"))
 
-import icon_rc
+import src.ui.icon_rc

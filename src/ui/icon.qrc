@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>icon/me.png</file>
+    <file>icon/icon.png</file>
+    <file>icon/tabitem-hover.png</file>
+    <file>icon/bg.png</file>
+    <file>icon/734f526a31b0c19fa88f3ef7ec0f72e9.png</file>
+  </qresource>
+</RCC>

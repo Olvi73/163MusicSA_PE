@@ -18,7 +18,7 @@ import src.searchLyric
 #
 #     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 
-from ui import Ui_MainWindow
+from src.ui.ui import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView, QAbstractItemView, QTableWidgetItem
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QEventLoop, QTimer, Qt
@@ -36,7 +36,8 @@ from src.searchLyric import searchLyr
 # pyrcc5 -o icon_rc.py icon.qrc
 
 class EmittingStr(QtCore.QObject):
-    textWritten = QtCore.pyqtSignal(str)  # 定义一个发送str的信号
+    # 定义一个发送str的信号
+    textWritten = QtCore.pyqtSignal(str)
 
     def write(self, text):
         self.textWritten.emit(str(text))
@@ -144,9 +145,10 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def lc(self):
         cloudLyric(self.user_idEdit.text())
-        pix = QPixmap(r'./wordcloud/' + self.user_idEdit.text() + '_lyricCloud.png')
+        pix = QPixmap(r'./data/wordcloud/' + self.user_idEdit.text() + '_lyricCloud.png')
         self.cloud_label.setPixmap(pix)
-        self.cloud_label.setScaledContents(True)  # 自适应QLabel大小
+        # 自适应QLabel大小
+        self.cloud_label.setScaledContents(True)
 
     def cloudArtist(self):
         self.th = threading.Thread(target=self.ca)
@@ -157,12 +159,14 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def ca(self):
         cloudArtist(self.user_idEdit.text())
-        pix = QPixmap(r'./wordcloud/' + self.user_idEdit.text() + '_artistCloud.png')
+        pix = QPixmap(r'./data/wordcloud/' + self.user_idEdit.text() + '_artistCloud.png')
         self.cloud_label.setPixmap(pix)
-        self.cloud_label.setScaledContents(True)  # 自适应QLabel大小
+        # 自适应QLabel大小
+        self.cloud_label.setScaledContents(True)
 
     def open_file(self):  # 打开文件夹
-        os.startfile('wordcloud')
+        #f'{os.getcwd()}\data\wordcloud'
+        os.startfile(r'.\data\wordcloud')
 
     def getinf(self):
         self.th = threading.Thread(target=self.gi)

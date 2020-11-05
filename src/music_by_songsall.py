@@ -67,7 +67,8 @@ def get_record(user_id):  # 创建获取歌手信息的方法
 def musicSpider(user_id):
     startTime = datetime.datetime.now()
     print("开始爬 歌曲 信息...")
-    get_record(user_id)  # 调用爬取方法
+    get_record(user_id)
+    # 调用爬取方法
     musics_num = sql.get_music_num(user_id)
     print('歌曲数量:', musics_num.get('num'))
     print("结束爬 歌曲 信息...")
