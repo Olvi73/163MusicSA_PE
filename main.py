@@ -55,17 +55,24 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setupUi(self)
         self.setWindowTitle('163MusicSA')
-        self.setWindowIcon(QIcon(r'./icon/icon.png'))
-        QApplication.setStyle('Fusion')
+        self.setWindowIcon(QIcon(r'./data/icon/icon.png'))
+        # QApplication.setStyle('Fusion')
+        # 窗口风格Fusion类型
         self.th = None
 
         self.musicSpider_Button.clicked.connect(self.musicSpider)
         self.lyricSpider_Button.clicked.connect(self.lyricSpider)
         self.cloudLyric_Button.clicked.connect(self.cloudLyric)
         self.cloudArtist_Button.clicked.connect(self.cloudArtist)
+        self.shapeFile()
+        self.fontFile()
         self.file_Button.clicked.connect(self.open_file)
+        self.shapefile_Button.clicked.connect(self.open_Shapefile)
+        self.fontfile_Button.clicked.connect(self.open_Fontfile)
         self.min_Button.clicked.connect(self.showMinimized)
         self.close_Button.clicked.connect(self.close)
+        self.meButton.clicked.connect(self.meBtn)
+
 
         self.music_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.music_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Interactive)
@@ -144,7 +151,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         # 利用line Edit控件对象text()函数获取界面输入
 
     def lc(self):
-        cloudLyric(self.user_idEdit.text())
+        cloudLyric(self.user_idEdit.text(), self.shapeBox.currentText(), self.fontBox.currentText())
         pix = QPixmap(r'./data/wordcloud/' + self.user_idEdit.text() + '_lyricCloud.png')
         self.cloud_label.setPixmap(pix)
         # 自适应QLabel大小
@@ -158,15 +165,33 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         self.th.start()
 
     def ca(self):
-        cloudArtist(self.user_idEdit.text())
+        cloudArtist(self.user_idEdit.text(), self.shapeBox.currentText(), self.fontBox.currentText())
         pix = QPixmap(r'./data/wordcloud/' + self.user_idEdit.text() + '_artistCloud.png')
         self.cloud_label.setPixmap(pix)
         # 自适应QLabel大小
         self.cloud_label.setScaledContents(True)
 
+    def shapeFile(self):
+        Shapelist = os.listdir(r"./data/wordcloud/shape")
+        for item in Shapelist:
+            self.shapeBox.addItem(item)
+
+    def fontFile(self):
+        Fontlist = os.listdir(r"./data/wordcloud/font")
+        for item in Fontlist:
+            self.fontBox.addItem(item)
+
     def open_file(self):  # 打开文件夹
-        #f'{os.getcwd()}\data\wordcloud'
+        # f'{os.getcwd()}\data\wordcloud'
         os.startfile(r'.\data\wordcloud')
+
+    def open_Shapefile(self):  # 打开文件夹
+        # f'{os.getcwd()}\data\wordcloud'
+        os.startfile(r'.\data\wordcloud\shape')
+
+    def open_Fontfile(self):  # 打开文件夹
+        # f'{os.getcwd()}\data\wordcloud'
+        os.startfile(r'.\data\wordcloud\font')
 
     def getinf(self):
         self.th = threading.Thread(target=self.gi)
@@ -184,7 +209,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def gi(self):
         i = 0
-        if (self.user_idEdit.text() == ""):
+        if self.user_idEdit.text() == "" and self.music_table.rowCount() == 0:
             inf = sql.get_musics()
             self.music_table.insertColumn(0)
             self.music_table.setHorizontalHeaderLabels(['用户id', '歌曲id', '歌曲名', '歌手'])
@@ -197,6 +222,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
                 i += 1
             self.music_table.update()
         else:
+            self.clear()
             inf = sql.get_music_table(self.user_idEdit.text())
             for item in inf:
                 self.music_table.insertRow(i)
@@ -208,7 +234,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def gi2(self):
         i = 0
-        if (self.user_idEdit.text() == ""):
+        if self.user_idEdit.text() == "" and self.music_table_2.rowCount() == 0:
             inf = sql.get_lyrics()
             for item in inf:
                 self.music_table_2.insertRow(i)
@@ -217,6 +243,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
                 i += 1
             self.music_table_2.update()
         else:
+            self.clear2()
             inf = sql.get_lyric_table(self.user_idEdit.text())
             for item in inf:
                 self.music_table_2.insertRow(i)
@@ -235,7 +262,8 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def clear(self):
         count = self.music_table.rowCount()
-        self.music_table.removeColumn(0)
+        if self.music_table.columnCount() == 4:
+            self.music_table.removeColumn(0)
         for _ in range(count):
             self.music_table.removeRow(0)
 
@@ -247,6 +275,9 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
     def clear3(self):
         self.music_idEdit.setText('')
         self.lyric_Browser.setText('')
+
+    def meBtn(self):
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl('https://github.com/Olvi73'))
 
 
 # 保存日志

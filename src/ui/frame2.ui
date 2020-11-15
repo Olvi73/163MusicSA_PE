@@ -45,7 +45,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="icon.qrc">:/icon/icon/bg.png</pixmap>
+     <pixmap resource="icon.qrc">:/icon/data/icon/bg.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -123,17 +123,17 @@ QPushButton:pressed{
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">QTabBar::tab{width:100}
+     <string notr="true">QTabBar::tab{width:160}
 
 QTabBar::tab{height:50}
 </string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>获取</string>
+      <string>获取数据 </string>
      </attribute>
      <widget class="QTextBrowser" name="textBrowser">
       <property name="geometry">
@@ -164,28 +164,46 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>20</x>
         <y>50</y>
-        <width>101</width>
-        <height>16</height>
+        <width>131</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
+       <string notr="true">font: 13pt &quot;微软雅黑&quot;;</string>
       </property>
       <property name="text">
        <string>控制台输出：</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="lyricSpider_Button">
+     <widget class="QGroupBox" name="groupBox_3">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>20</y>
-        <width>121</width>
-        <height>41</height>
+        <x>200</x>
+        <y>0</y>
+        <width>351</width>
+        <height>91</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>类型</string>
+      </property>
+      <widget class="QPushButton" name="lyricSpider_Button">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>30</y>
+         <width>121</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
 background:#FFF0F5;
 color:#a05e7a;
 box-shadow: 1px 1px 3px rgba(0, 0, 0,0.3);font-size:16px;border-radius: 14px;font-family: 微软雅黑;
@@ -197,22 +215,22 @@ QPushButton:pressed{
 border: 1px solid 	#FFC0CB!important;
 }
 </string>
-      </property>
-      <property name="text">
-       <string>歌词</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="musicSpider_Button">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>20</y>
-        <width>121</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
+       </property>
+       <property name="text">
+        <string>歌词</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="musicSpider_Button">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>30</y>
+         <width>121</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
 background:#FFF0F5;
 color:#a05e7a;
 box-shadow: 1px 1px 3px rgba(0, 0, 0,0.3);font-size:16px;border-radius: 14px;font-family: 微软雅黑;
@@ -224,16 +242,17 @@ QPushButton:pressed{
 border: 1px solid 	#FFC0CB!important;
 }
 </string>
-      </property>
-      <property name="text">
-       <string>歌曲</string>
-      </property>
-      <property name="autoRepeat">
-       <bool>false</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
-      </property>
+       </property>
+       <property name="text">
+        <string>歌曲</string>
+       </property>
+       <property name="autoRepeat">
+        <bool>false</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -243,9 +262,9 @@ border: 1px solid 	#FFC0CB!important;
      <widget class="QLabel" name="cloud_label">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>100</y>
-        <width>1021</width>
+        <x>90</x>
+        <y>50</y>
+        <width>621</width>
         <height>421</height>
        </rect>
       </property>
@@ -264,29 +283,139 @@ border: 2px solid rgb(43, 43, 43, 255);</string>
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>60</y>
-        <width>101</width>
-        <height>16</height>
+        <y>20</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 9pt &quot;微软雅黑&quot;;</string>
+       <string notr="true">font: 13pt &quot;微软雅黑&quot;;</string>
       </property>
       <property name="text">
        <string>词云输出：</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="cloudLyric_Button">
+     <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
-        <x>290</x>
-        <y>20</y>
-        <width>121</width>
-        <height>41</height>
+        <x>730</x>
+        <y>70</y>
+        <width>341</width>
+        <height>131</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton{
+       <string notr="true">font-family: 微软雅黑;</string>
+      </property>
+      <property name="title">
+       <string>样式</string>
+      </property>
+      <widget class="QComboBox" name="shapeBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>131</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:#6C6C6C;
+color:white;
+font-size:16px;font-family: 微软雅黑;</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="fontBox">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>70</y>
+         <width>131</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:#6C6C6C;
+color:white;
+font-size:16px;font-family: 微软雅黑;</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>30</y>
+         <width>51</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>形状</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>30</y>
+         <width>72</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>字体</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>200</y>
+        <width>341</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>词云</string>
+      </property>
+      <widget class="QPushButton" name="cloudLyric_Button">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>121</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
 background:#FAEBD7;
 color:#da7e4f;
 box-shadow: 1px 1px 3px rgba(0,0,0,0.3);font-size:16px;border-radius: 14px;font-family: 微软雅黑;
@@ -298,22 +427,22 @@ QPushButton:pressed{
 border: 1px solid 	#DEB887!important;
 }
 </string>
-      </property>
-      <property name="text">
-       <string>歌词</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="cloudArtist_Button">
-      <property name="geometry">
-       <rect>
-        <x>490</x>
-        <y>20</y>
-        <width>121</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
+       </property>
+       <property name="text">
+        <string>歌词</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cloudArtist_Button">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>40</y>
+         <width>121</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
 background:#FAEBD7;
 color:#da7e4f;
 box-shadow: 1px 1px 3px rgba(0,0,0,0.3);font-size:16px;border-radius: 14px;font-family: 微软雅黑;
@@ -325,22 +454,41 @@ QPushButton:pressed{
 border: 1px solid 	#DEB887!important;
 }
 </string>
-      </property>
-      <property name="text">
-       <string>歌手</string>
-      </property>
+       </property>
+       <property name="text">
+        <string>歌手</string>
+       </property>
+      </widget>
      </widget>
-     <widget class="QPushButton" name="file_Button">
+     <widget class="QGroupBox" name="groupBox_4">
       <property name="geometry">
        <rect>
-        <x>790</x>
-        <y>20</y>
-        <width>181</width>
-        <height>51</height>
+        <x>730</x>
+        <y>330</y>
+        <width>341</width>
+        <height>171</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="title">
+       <string>文件夹</string>
+      </property>
+      <widget class="QPushButton" name="file_Button">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>191</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
 background:#6C6C6C;
 color:white;
 box-shadow: 1px 1px 3px rgba(0,0,0,0.3);font-size:16px;border-radius: 14px;font-family: 微软雅黑;
@@ -352,24 +500,85 @@ QPushButton:pressed{
 border: 1px solid #3C3C3C!important;
 }
 </string>
-      </property>
-      <property name="text">
-       <string>打开输出文件夹</string>
-      </property>
+       </property>
+       <property name="text">
+        <string>打开输出文件夹</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="fontfile_Button">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>110</y>
+         <width>101</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background:#6C6C6C;
+color:white;
+box-shadow: 1px 1px 3px rgba(0,0,0,0.3);font-size:16px;border-radius: 14px;font-family: 微软雅黑;
+}
+QPushButton:hover{
+background:#9D9D9D;
+}
+QPushButton:pressed{
+border: 1px solid #3C3C3C!important;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>字体</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="shapefile_Button">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>40</y>
+         <width>101</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton{
+background:#6C6C6C;
+color:white;
+box-shadow: 1px 1px 3px rgba(0,0,0,0.3);font-size:16px;border-radius: 14px;font-family: 微软雅黑;
+}
+QPushButton:hover{
+background:#9D9D9D;
+}
+QPushButton:pressed{
+border: 1px solid #3C3C3C!important;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>形状</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
-      <string>music</string>
+      <string>Music</string>
      </attribute>
      <widget class="QTableWidget" name="music_table">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>60</y>
-        <width>1011</width>
-        <height>451</height>
+        <x>20</x>
+        <y>70</y>
+        <width>1041</width>
+        <height>461</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>13</pointsize>
+       </font>
       </property>
       <column>
        <property name="text">
@@ -411,7 +620,7 @@ border: 1px solid #3C3C3C!important;
         <x>400</x>
         <y>10</y>
         <width>121</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -438,7 +647,7 @@ border: 1px solid #3C3C3C!important;
         <x>590</x>
         <y>10</y>
         <width>121</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -459,10 +668,13 @@ border: 1px solid #3C3C3C!important;
        <string>清除</string>
       </property>
      </widget>
+     <zorder>tableinf_Button</zorder>
+     <zorder>clear_Button</zorder>
+     <zorder>music_table</zorder>
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
-      <string>lyric</string>
+      <string>Lyric</string>
      </attribute>
      <widget class="QPushButton" name="tableinf_Button_2">
       <property name="geometry">
@@ -470,7 +682,7 @@ border: 1px solid #3C3C3C!important;
         <x>400</x>
         <y>10</y>
         <width>121</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -494,10 +706,10 @@ border: 1px solid #3C3C3C!important;
      <widget class="QTableWidget" name="music_table_2">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>60</y>
-        <width>1011</width>
-        <height>451</height>
+        <x>20</x>
+        <y>70</y>
+        <width>1041</width>
+        <height>461</height>
        </rect>
       </property>
       <property name="font">
@@ -535,7 +747,7 @@ border: 1px solid #3C3C3C!important;
         <x>590</x>
         <y>10</y>
         <width>121</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -559,7 +771,7 @@ border: 1px solid #3C3C3C!important;
     </widget>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">
-      <string>search</string>
+      <string>Search</string>
      </attribute>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
@@ -577,7 +789,7 @@ border: 1px solid #3C3C3C!important;
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="icon.qrc">:/icon/icon/tabitem-hover.png</pixmap>
+       <pixmap resource="icon.qrc">:/icon/data/icon/tabitem-hover.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -699,6 +911,49 @@ border: 1px solid #3C3C3C!important;
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab_6">
+     <attribute name="title">
+      <string>使用说明</string>
+     </attribute>
+     <widget class="QTextBrowser" name="readme_browser">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>1021</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:black;
+font: 11pt &quot;微软雅黑&quot;;
+border-radius:5px;
+background-color: rgb(195, 196, 201);
+border: 2px solid rgb(43, 43, 43, 255);</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'微软雅黑'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt; font-weight:600;&quot;&gt;获取数据&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	歌曲：输入用户uid，爬取听歌历史排行中的所有歌曲&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	歌词：获取完歌曲信息之后，通过歌曲爬取歌词信息&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	使用：先点歌曲，再点歌词&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt; font-weight:600;&quot;&gt;词云&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	歌曲：通过歌曲信息生成词云&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	歌手：通过歌手信息生成词云&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	使用：选择词云的形状和字体，点击歌曲或者歌词生成对应的词云。字体或形状可在data/wordcloud的font或者shape中自行添加&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt; font-weight:600;&quot;&gt;Music&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	读取：未输入用户uid时，读取所有信息，输入用户uid时读取特定用户的信息&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	清除：清除当前表格&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt; font-weight:600;&quot;&gt;Lyric&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	同Music功能，查看的信息为歌词信息&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt; font-weight:600;&quot;&gt;Search&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:16pt;&quot;&gt;	输入歌曲的id，获取其歌词&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QLabel" name="me_label">
     <property name="geometry">
@@ -709,11 +964,14 @@ border: 1px solid #3C3C3C!important;
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="icon.qrc">:/icon/icon/me.png</pixmap>
+     <pixmap resource="icon.qrc">:/icon/data/icon/me.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -735,7 +993,7 @@ border: 1px solid #3C3C3C!important;
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="icon.qrc">:/icon/icon/tabitem-hover.png</pixmap>
+     <pixmap resource="icon.qrc">:/icon/data/icon/tabitem-hover.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -773,6 +1031,23 @@ background-color: none;</string>
 border:none;
 
 </string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="meButton">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>90</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 15pt &quot;微软雅黑&quot;;
+border:none;</string>
     </property>
     <property name="text">
      <string/>

@@ -9,7 +9,7 @@ from wordcloud import WordCloud
 from src import sql_sqlite as sql
 
 
-def cloudLyric(user_id):
+def cloudLyric(user_id, shape, font_choice):
     print("start analyse lyrics")
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
@@ -21,7 +21,10 @@ def cloudLyric(user_id):
     for n in range(len(lyr)):
         texts[0][n]['lyric'] = texts[0][n]['lyric'].replace('\n', '')
         # 把歌词中的\n干掉
-    color_mask = imread(r"./data/wordcloud/shape/heart.jpg")
+    ShapePath = './data/wordcloud/shape/'
+    color_mask = imread(ShapePath + shape)
+    FontPath = './data/wordcloud/font/'
+    font_mask = FontPath + font_choice
     # 单独运行时解开注释
     midTime = datetime.datetime.now()
     print("获取歌词信息完毕，分析start:", midTime.strftime('%Y-%m-%d %H:%M:%S'))
@@ -31,7 +34,7 @@ def cloudLyric(user_id):
     if 'u3000' in data:
         data.pop('u3000')
     word_cloud = WordCloud(scale=16,
-                           font_path="./data/font/msyh.ttc",
+                           font_path=font_mask,
                            background_color="white",
                            max_words=400,
                            max_font_size=100,

@@ -17,8 +17,7 @@ from wordcloud import WordCloud
 from src import sql_sqlite as sql
 
 
-def cloudArtist(user_id):
-
+def cloudArtist(user_id, shape, font_choice):
     print("start analyse lyrics")
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
@@ -30,14 +29,17 @@ def cloudArtist(user_id):
     for n in range(len(lyr)):
         texts[0][n]['nickname'] = texts[0][n]['nickname'].replace('\xa0', '')
         # 把歌词中的\n干掉
-    color_mask = imread(r"./data/wordcloud/shape/heart.jpg")
+    ShapePath = './data/wordcloud/shape/'
+    color_mask = imread(ShapePath+shape)
+    FontPath = './data/wordcloud/font/'
+    font_mask = FontPath+font_choice
     midTime = datetime.datetime.now()
     print("获取歌手信息完毕，分析start:")
     tags = jieba.analyse.extract_tags(str(texts), 1000, withWeight=True)
     data = {item[0]: item[1] for item in tags}
     data.pop('nickname')
     word_cloud = WordCloud(scale=16,
-                           font_path="./data/font/msyh.ttc",
+                           font_path=font_mask,
                            background_color="white",
                            max_words=400,
                            max_font_size=100,
@@ -49,7 +51,7 @@ def cloudArtist(user_id):
     # plt.imshow(word_cloud)
     # plt.axis("off")  # 不显示坐标尺寸
     # plt.savefig(r'wordcloud/'+user_id+'_artistCloud.png', dpi=400)  # 指定分辨率
-    word_cloud.to_file(r'./data/wordcloud/'+user_id+'_artistCloud.png')
+    word_cloud.to_file(r'./data/wordcloud/' + user_id + '_artistCloud.png')
     # plt.show()
 
     print("finish analyse lyric")

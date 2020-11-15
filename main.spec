@@ -8,7 +8,7 @@ SETUP_DIR = 'F:\\blog\\163MusicSA_PE\\'
 a = Analysis(['main.py'],
              pathex=['F:\\blog\\163MusicSA_PE'],
              binaries=[],
-             datas=[(SETUP_DIR+'static','.'),(SETUP_DIR+'data','data'),(SETUP_DIR+'icon','icon'),(SETUP_DIR+'src\\img','src\\img')],
+             datas=[(SETUP_DIR+'static','.'),(SETUP_DIR+'data','data')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -32,4 +32,6 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False )
+          console=False,
+          icon='F:\\blog\\163MusicSA_PE\\data\\icon\\nc.ico'
+           )

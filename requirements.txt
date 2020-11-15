@@ -2,6 +2,6 @@ requests~=2.24.0
 selenium~=3.141.0
 beautifulsoup4~=4.9.3
 jieba~=0.42.1
-matplotlib~=3.3.2
+matplotlib~=3.1.1
 wordcloud~=1.8.0
 PyQt5~=5.15.1
