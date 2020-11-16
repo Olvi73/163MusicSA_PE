@@ -16,7 +16,10 @@ from concurrent.futures.process import ProcessPoolExecutor
 from src import sql_sqlite as sql
 from src.util.user_agents import agents
 
+
 words = ['编曲', '混音', '录音室', '录音师', '录音', '母带', '制作', '贝斯']
+
+
 
 
 # 自定义清除内容
@@ -85,7 +88,7 @@ class LyricComment(object):
             except Exception as e:
                 print(music_id, "insert error", str(e))
         else:
-            print(str(music_id), "has no lyric", lyricJson)
+            print(str(music_id), "没有歌词", lyricJson)
         # 请求完成后睡一秒 防作弊
         time.sleep(1)
 
@@ -94,7 +97,8 @@ def saveLyricBatch(user_id, index):
     my_lyric_comment = LyricComment()
     offset = 34 * index
     musics = sql.get_music_page(user_id, offset, 34)
-    print("index:", index, "offset:", offset, "musics :", len(musics), "start")
+
+    print("线程:", index, "页数:", offset, "歌曲处理数 :", len(musics), "start")
 
     for item in musics:
         flag = sql.try_music(item['music_id']).get('num')
@@ -104,9 +108,11 @@ def saveLyricBatch(user_id, index):
             except Exception as e:
                 # 打印错误日志
                 print(item['music_id'], ' internal  error : ' + str(e))
+
                 # traceback.print_exc()
                 time.sleep(1)
-    print("index:", index, "finished")
+    print("线程:", index, "完成")
+
 
 
 def lyricSpider(user_id):
@@ -117,10 +123,10 @@ def lyricSpider(user_id):
     # 打包后出现多个进程
 
     musics_num = sql.get_music_num(user_id)
-    if (musics_num.get('num')==0):
+    if (musics_num.get('num') == 0):
         print('没有找到该用户信息')
     else:
-        print("musics :", musics_num.get('num'), "start")
+        print("歌曲总数 :", musics_num.get('num'), "开始")
         batch = math.ceil(musics_num.get('num') / 34.0)
         pool = ProcessPoolExecutor(3)
         for index in range(0, batch):

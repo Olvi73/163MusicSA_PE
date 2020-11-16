@@ -5,6 +5,8 @@ import multiprocessing
 import sys
 import os
 import threading
+import time
+
 import src.ui.ui
 import PyQt5
 import src.lyric_by_music
@@ -34,6 +36,7 @@ from src.searchLyric import searchLyr
 
 # pyuic5 -o ui.py frame2.ui
 # pyrcc5 -o icon_rc.py icon.qrc
+# import src.ui.icon_rc
 
 class EmittingStr(QtCore.QObject):
     # 定义一个发送str的信号
@@ -62,6 +65,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
         self.musicSpider_Button.clicked.connect(self.musicSpider)
         self.lyricSpider_Button.clicked.connect(self.lyricSpider)
+
         self.cloudLyric_Button.clicked.connect(self.cloudLyric)
         self.cloudArtist_Button.clicked.connect(self.cloudArtist)
         self.shapeFile()
@@ -72,7 +76,6 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
         self.min_Button.clicked.connect(self.showMinimized)
         self.close_Button.clicked.connect(self.close)
         self.meButton.clicked.connect(self.meBtn)
-
 
         self.music_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.music_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Interactive)
@@ -142,6 +145,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
     def ls(self):
         lyricSpider(self.user_idEdit.text())
 
+
     def cloudLyric(self):
         self.th = threading.Thread(target=self.lc)
         # 设置线程为守护线程，防止退出主线程时，子线程仍在运行
@@ -192,6 +196,7 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
     def open_Fontfile(self):  # 打开文件夹
         # f'{os.getcwd()}\data\wordcloud'
         os.startfile(r'.\data\wordcloud\font')
+
 
     def getinf(self):
         self.th = threading.Thread(target=self.gi)
@@ -253,12 +258,13 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
             self.music_table_2.update()
 
     def searchlyr(self):
-        text = searchLyr(self.music_idEdit.text())
-        cursor = self.lyric_Browser.textCursor()
-        cursor.movePosition(QtGui.QTextCursor.End)
-        cursor.insertText(text)
-        self.lyric_Browser.setTextCursor(cursor)
-        self.lyric_Browser.ensureCursorVisible()
+        if self.music_idEdit.text() != "":
+            text = searchLyr(self.music_idEdit.text())
+            cursor = self.lyric_Browser.textCursor()
+            cursor.movePosition(QtGui.QTextCursor.End)
+            cursor.insertText(text)
+            self.lyric_Browser.setTextCursor(cursor)
+            self.lyric_Browser.ensureCursorVisible()
 
     def clear(self):
         count = self.music_table.rowCount()
@@ -278,6 +284,8 @@ class MyMainForm(QMainWindow, Ui_MainWindow):
 
     def meBtn(self):
         QtGui.QDesktopServices.openUrl(QtCore.QUrl('https://github.com/Olvi73'))
+
+
 
 
 # 保存日志
