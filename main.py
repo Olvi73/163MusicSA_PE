@@ -29,6 +29,7 @@ from PyQt5.QtGui import QIcon, QPixmap, QCursor
 import src.sql_sqlite as sql
 from src.lyric_by_music import lyricSpider
 from src.music_by_songsall import musicSpider
+from src.playlist_by_user import playlistSpider
 from src.word_cloud_by_artist import cloudArtist
 from src.word_cloud_by_lyric import cloudLyric
 from src.searchLyric import searchLyr

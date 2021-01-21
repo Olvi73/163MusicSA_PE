@@ -16,7 +16,7 @@ def dict_factory(cursor, row):
 
 global connection
 # 设置同线程判断为false，方便在pyqt中多线程调用
-connection = sqlite3.connect(r'./data/data.db', check_same_thread=False)
+connection = sqlite3.connect(r'../data/data.db', check_same_thread=False)
 connection.row_factory = dict_factory
 
 
@@ -60,7 +60,15 @@ def get_music_num(user_id):
         return cursor.fetchone()
 
 
-# 获取歌曲总数
+# 获取歌单总数
+def get_playlist_music_num(user_id):
+    with get_cursor(connection) as cursor:
+        sql = "SELECT count(1) as num FROM `playlist` WHERE user_id=?"
+        cursor.execute(sql, [user_id])
+        return cursor.fetchone()
+
+
+# 判断歌词是否存在
 def try_music(music_id):
     with get_cursor(connection) as cursor:
         sql = "SELECT count(1) as num FROM `lyrics` WHERE music_id=?"
@@ -116,11 +124,58 @@ def insert_music(user_id, music_id, music_name, nickname):
     connection.commit()
 
 
+# 保存歌单
+def insert_playlist(playlist_id, user_id, title, img ):
+    with get_cursor(connection) as cursor:
+        sql = "INSERT INTO `playlist` (`playlist_id`,`user_id`, `title`, `img`) VALUES (?, ?, ?, ?)"
+        cursor.execute(sql, (playlist_id, user_id, title, img))
+    connection.commit()
+
+
+# 保存歌单
+def insert_playlist_music(playlist_id, music_id):
+    with get_cursor(connection) as cursor:
+        sql = "INSERT INTO `playlist_music` (`playlist_id`,`music_id`) VALUES (?, ?)"
+        cursor.execute(sql, (playlist_id, music_id))
+    connection.commit()
+
+
+# 更新歌名
+def update_playlist_music(music_name, music_id):
+    with get_cursor(connection) as cursor:
+        sql = "UPDATE `playlist_music` set `music_name`=? where music_id=?"
+        cursor.execute(sql, (music_name, music_id))
+    connection.commit()
+
+
 # 分页获取音乐的 ID
 def get_music_page(user_id, offset, size):
     with get_cursor(connection) as cursor:
         sql = "SELECT `music_id` FROM `musics` WHERE user_id=? limit ? offset ?"
         cursor.execute(sql, (user_id, size, offset))
+        return cursor.fetchall()
+
+
+# 分页获取歌单的 ID
+def get_playlist_music_page(user_id, offset, size):
+    with get_cursor(connection) as cursor:
+        sql = "SELECT `playlist_id` FROM `playlist` WHERE user_id=? limit ? offset ?"
+        cursor.execute(sql, (user_id, size, offset))
+        return cursor.fetchall()
+
+
+# 获取相同音乐的ID
+def get_same_music(user_id1, user_id2):
+    with get_cursor(connection) as cursor:
+        sql = "select pm1.music_id\
+                from playlist p1,playlist_music pm1,playlist p2,playlist_music pm2\
+                where p1.user_id=?\
+                and p1.playlist_id=pm1.playlist_id\
+                and p2.user_id=?\
+                and p2.playlist_id=pm2.playlist_id\
+                and pm1.music_id=pm2.music_id\
+                group by pm1.music_id;"
+        cursor.execute(sql, (user_id1, user_id2))
         return cursor.fetchall()
 
 
