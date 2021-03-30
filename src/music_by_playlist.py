@@ -1,5 +1,5 @@
 """
-根据歌曲 ID 获得所有的歌曲所对应的歌词
+根据歌单 ID 获取所有歌曲 id
 """
 import sys
 import datetime
@@ -92,7 +92,7 @@ def pmusicSpider(user_id):
     else:
         print("歌单总数 :", musics_num.get('num'), "开始")
         batch = math.ceil(musics_num.get('num') / 9.0)
-        pool = ProcessPoolExecutor(1)
+        pool = ProcessPoolExecutor(3)
         for index in range(0, batch):
             pool.submit(saveMusicBatch, user_id, index)
         pool.shutdown(wait=True)

@@ -1,6 +1,7 @@
 
 """
-根据歌曲 ID 更新歌曲名
+根据相同的歌曲 ID 更新歌曲名
+不同的歌曲不会更新名字
 """
 import sys
 import datetime
@@ -57,7 +58,7 @@ class Music(object):
 
 
 def pmusicSpider(user_id1, user_id2):
-    print("开始爬 歌曲 信息...")
+    print("开始匹配 相同歌曲 信息...")
     startTime = datetime.datetime.now()
     print(startTime.strftime('%Y-%m-%d %H:%M:%S'))
     # 所有歌手数量
@@ -74,9 +75,10 @@ def pmusicSpider(user_id1, user_id2):
             traceback.print_exc()
             # time.sleep(1)
 
-    print("结束爬 歌曲 信息...")
+    print("结束匹配 相同歌曲 信息...")
     endTime = datetime.datetime.now()
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))
-    print("爬歌曲耗时：", (endTime - startTime).seconds, "秒")
+    print("匹配歌曲名字耗时：", (endTime - startTime).seconds, "秒")
 if __name__ == '__main__':
     pmusicSpider('x', 'x')
+

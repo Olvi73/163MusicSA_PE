@@ -30,7 +30,7 @@ def get_record(user_id):  # 创建获取歌手信息的方法
     driver.maximize_window()
     time.sleep(0.5)
     # 首次打开此界面会出现"现在支持搜索mv了"的提示，将songsall给挡住无法点击，所以最大化，等待加载后再点击
-    driver.find_element_by_id("songsall").click()
+    # driver.find_element_by_id("songsall").click()
     # 定位到切换到所有时间的按钮标签,模拟鼠标点击查看所有时间下的听歌排行
     # 注释.click()行,可改变(最近一周/所有时间)
     driver.implicitly_wait(10)  # 隐式等待

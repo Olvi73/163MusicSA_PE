@@ -16,6 +16,7 @@ def dict_factory(cursor, row):
 
 global connection
 # 设置同线程判断为false，方便在pyqt中多线程调用
+# connection = sqlite3.connect(r'./data/data.db', check_same_thread=False)
 connection = sqlite3.connect(r'../data/data.db', check_same_thread=False)
 connection.row_factory = dict_factory
 
@@ -133,12 +134,18 @@ def insert_playlist(playlist_id, user_id, title, img ):
 
 
 # 保存歌单
+# 2021/3/30 爬取的歌单只有前5首歌有歌曲名，后面的歌只有id
+# def insert_playlist_music(playlist_id, music_id, music_name):
+#     with get_cursor(connection) as cursor:
+#         sql = "INSERT INTO `playlist_music` (`playlist_id`,`music_id`,`music_name`) VALUES (?, ?, ?)"
+#         cursor.execute(sql, (playlist_id, music_id, music_name))
+#     connection.commit()
+
 def insert_playlist_music(playlist_id, music_id):
     with get_cursor(connection) as cursor:
         sql = "INSERT INTO `playlist_music` (`playlist_id`,`music_id`) VALUES (?, ?)"
         cursor.execute(sql, (playlist_id, music_id))
     connection.commit()
-
 
 # 更新歌名
 def update_playlist_music(music_name, music_id):
@@ -178,6 +185,19 @@ def get_same_music(user_id1, user_id2):
         cursor.execute(sql, (user_id1, user_id2))
         return cursor.fetchall()
 
+# 获取相同歌曲所有信息
+def get_same_musicinfo(user_id1, user_id2):
+    with get_cursor(connection) as cursor:
+        sql = "select p1.title as l1, p2.title as l2, pm1.music_id, pm1.music_name\
+                from playlist p1, playlist_music pm1, playlist p2, playlist_music pm2\
+                where p1.user_id=?\
+                and p1.playlist_id=pm1.playlist_id\
+                and p2.user_id=?\
+                and p2.playlist_id=pm2.playlist_id\
+                and pm1.music_id=pm2.music_id\
+                group by pm1.music_id;"
+        cursor.execute(sql, (user_id1, user_id2))
+        return cursor.fetchall()
 
 # 获取所有音乐的 ID\歌词\歌手
 def get_all_music():

@@ -10,7 +10,8 @@ from concurrent.futures import ProcessPoolExecutor
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from src import sql_sqlite as sql
+# from src import sql_sqlite as sql
+import sql_sqlite as sql
 from src.util.user_agents import agents
 
 
@@ -39,8 +40,8 @@ class Album(object):
         option = webdriver.ChromeOptions()  # 设置不弹出浏览器
         option.headless = True
         # driver = webdriver.Chrome(chrome_options=option)  # webdriver实例化
-        driver = webdriver.Chrome(chrome_options=option, executable_path='./data/chromedriver.exe')
-
+        driver = webdriver.Chrome(chrome_options=option, executable_path='../data/chromedriver.exe')
+        # driver = webdriver.Chrome(chrome_options=option)
         driver.get(url)
         driver.switch_to.frame('g_iframe')
         # 找到指定iframe标签（这里是g_iframe）然后跳入

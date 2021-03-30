@@ -1,5 +1,6 @@
 """
 根据歌曲 ID 获得所有的歌曲所对应的歌词
+尝试直接利用网易云api获取整个歌单的歌曲及名字，但是歌曲名只有前五首歌有，遂放弃
 """
 import sys
 import datetime
@@ -9,9 +10,9 @@ import re
 import time
 import requests
 import math
-import concurrent.futures
-import src.util.user_agents
-import src.sql_sqlite
+# import concurrent.futures
+# import src.util.user_agents
+# import src.sql_sqlite
 from concurrent.futures.process import ProcessPoolExecutor
 from src import sql_sqlite as sql
 from src.util.user_agents import agents
@@ -47,6 +48,7 @@ class Music(object):
         r = requests.get(url, headers=self.headers)
         # 解析
         musicJson = json.loads(r.text)
+        print(musicJson)
         for item in musicJson.get('playlist').get('tracklds'):
             music_id = item['id']
             music_name = item['name']
@@ -68,9 +70,8 @@ def saveMusicBatch(user_id, index):
 
     for item in playlist:
         try:
-            # my_music.saveMusic(item['playlist_id'])
-            my_music.saveMusic('940064050')
-
+            print(item['playlist_id'])
+            my_music.saveMusic(item['playlist_id'])
         except Exception as e:
             # 打印错误日志
             print(item['playlist_id'], ' internal  error : ' + str(e))
@@ -94,7 +95,7 @@ def pmusicSpider(user_id):
     else:
         print("歌单总数 :", musics_num.get('num'), "开始")
         batch = math.ceil(musics_num.get('num') / 8.0)
-        pool = ProcessPoolExecutor(1)
+        pool = ProcessPoolExecutor(3)
         for index in range(0, batch):
             pool.submit(saveMusicBatch, user_id, index)
         pool.shutdown(wait=True)
@@ -103,4 +104,4 @@ def pmusicSpider(user_id):
     print(endTime.strftime('%Y-%m-%d %H:%M:%S'))
     print("爬歌曲耗时：", (endTime - startTime).seconds, "秒")
 if __name__ == '__main__':
-    pmusicSpider('600006922')
+    pmusicSpider('x')
