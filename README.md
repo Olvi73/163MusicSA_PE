@@ -10,16 +10,16 @@ v1.1 [天翼云](https://cloud.189.cn/t/u2qIzeZrayIv) **vw0x**
 
 ## 主界面
 
-![img1](https://github.com/Olvi73/163MusicSA_PE/blob/master/ScreenShots/img1.png)
+![img1](https://github.com/Olvi73/163MusicSA_PE/blob/main/ScreenShots/img1.png)
 
 ## 词云
 
-![img2](https://github.com/Olvi73/163MusicSA_PE/blob/master/ScreenShots/img2.png)
+![img2](https://github.com/Olvi73/163MusicSA_PE/blob/main/ScreenShots/img2.png)
 
 ## 歌词
 
-![img3](https://github.com/Olvi73/163MusicSA_PE/blob/master/ScreenShots/img3.png)
+![img3](https://github.com/Olvi73/163MusicSA_PE/blob/main/ScreenShots/img3.png)
 
 ## 说明
 
-![img4](https://github.com/Olvi73/163MusicSA_PE/blob/master/ScreenShots/img4.png)
+![img4](https://github.com/Olvi73/163MusicSA_PE/blob/main/ScreenShots/img4.png)
